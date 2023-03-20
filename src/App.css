@@ -1,0 +1,20 @@
+.pokemons-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pokemons-container > .generation-range {
+  font-family: "Pokemon", sans-serif;
+  color: black;
+  background-color: #339dff;
+  padding: 0 0.9rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s ease-out;
+}
+
+.pokemons-container > .generation-range.active {
+  opacity: 1;
+}
