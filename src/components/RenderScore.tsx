@@ -3,6 +3,8 @@ import "../style/score.css";
 function renderScore() {
   const score = parseInt(sessionStorage.getItem("score") ?? "0");
   const total = parseInt(sessionStorage.getItem("totalResponse") ?? "0");
+
+  console.log(score, total);
   const reste = 30 - total;
 
   const result = (score: number) => {
