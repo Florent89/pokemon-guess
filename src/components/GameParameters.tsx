@@ -5,6 +5,9 @@ import RenderScore from "./RenderScore";
 function gameParameters() {
   const [generation, setGeneration] = useState(1);
   const [difficult, setDifficult] = useState("Facile");
+  const [isFinish, setIsFinish] = useState(false);
+
+  const [isUpdate, setIsUpdate] = useState(true);
 
   const GENERATION = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -15,6 +18,11 @@ function gameParameters() {
     sessionStorage.setItem("level", level);
     sessionStorage.removeItem("totalResponse");
     sessionStorage.removeItem("score");
+    setIsUpdate(!isUpdate);
+  };
+
+  const handleIsUpdate = () => {
+    setIsUpdate(!isUpdate);
   };
 
   return (
@@ -52,8 +60,12 @@ function gameParameters() {
         })}
       </div>
       <div className="pokemon-display-container">
-        <GuessPokemonDisplay generation={generation} difficult={difficult} />
-        <RenderScore />
+        <GuessPokemonDisplay
+          generation={generation}
+          difficult={difficult}
+          handleIsUpdate={handleIsUpdate}
+        />
+        <RenderScore isUpdate={isUpdate} />
       </div>
     </>
   );

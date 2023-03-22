@@ -1,11 +1,16 @@
+import { useEffect, useState } from "react";
 import "../style/score.css";
 
-function renderScore() {
-  const score = parseInt(sessionStorage.getItem("score") ?? "0");
-  const total = parseInt(sessionStorage.getItem("totalResponse") ?? "0");
+function renderScore(props: { isUpdate: boolean }) {
+  const [score, setScore] = useState<string | null>(null);
+  const [total, setTotal] = useState<string | null>(null);
 
-  console.log(score, total);
-  const reste = 30 - total;
+  useEffect(() => {
+    setScore(sessionStorage.getItem("score"));
+    setTotal(sessionStorage.getItem("totalResponse"));
+  }, [props.isUpdate]);
+
+  const reste = 30 - parseInt(total ?? "0");
 
   const result = (score: number) => {
     switch (true) {
@@ -27,27 +32,27 @@ function renderScore() {
   };
 
   return (
-    <div className="result-container">
+    <>
       {reste > 0 ? (
-        <>
+        <div className="result-container">
           <p className="score-text">
             Score actuel <br /> {score} / 30
           </p>
           <p className="score-text">{reste} questions restantes</p>
-        </>
+        </div>
       ) : (
-        <>
-          <p className="score-text">Votre résultat final : {score} / 30</p>
-          <p className="score-text">{result(score)}</p>
+        <div className="result-text-container">
+          <p className="result-text">Votre résultat final : {score} / 30</p>
+          <p className="result-text">{result(parseInt(score ?? "0"))}</p>
           <button
             className="reset-score-button"
             onClick={() => handleRemoveSessionStorage()}
           >
             Recommencer
           </button>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

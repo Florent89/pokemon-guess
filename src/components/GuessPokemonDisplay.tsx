@@ -15,15 +15,19 @@ export type resultPokemon = {
 
 const API_URL = "https://api-pokemon-fr.vercel.app/api/v1/gen/";
 
-function guessPokemonDisplay(props: { generation: number; difficult: string }) {
+function guessPokemonDisplay(props: {
+  generation: number;
+  difficult: string;
+  handleIsUpdate: Function;
+}) {
   const [pokemonList, setPokemonList] = useState<resultPokemon[]>([]);
   const [pokemonToGuess, setPokemonToGuess] = useState<resultPokemon>();
   const [response, setResponse] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAnswer, setIsAnswer] = useState(false);
 
-  const [score, setScore] = useState(0);
-  const [total, setTotal] = useState(0);
+  const storageScore = sessionStorage.getItem("score");
+  const storageTotal = sessionStorage.getItem("totalResponse");
 
   useEffect(() => {
     fetch(`${API_URL}${props.generation}`, {
@@ -35,11 +39,6 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
         randomisePokemon(res);
       });
   }, [props.generation, props.difficult]);
-
-  useEffect(() => {
-    setScore(0);
-    setTotal(0);
-  }, [props.difficult]);
 
   function randomisePokemon(pokemonList: any): void {
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
@@ -76,14 +75,12 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
         pokemonToGuess?.name?.toLowerCase()
       )
     ) {
-      const updateScore = +score + 1;
+      const updateScore = parseInt(storageScore ?? "0") + 1;
       sessionStorage.setItem("score", updateScore.toString());
-      console.log(updateScore);
-      setScore(updateScore);
     }
-    const updateTotal = +total + 1;
+    const updateTotal = parseInt(storageTotal ?? "0") + 1;
     sessionStorage.setItem("totalResponse", updateTotal.toString());
-    setTotal(total + 1);
+    props.handleIsUpdate();
     setResponse("");
   };
 
