@@ -104,7 +104,7 @@ function guessPokemonDisplay(props: {
   return (
     <div className="guess-wrapper">
       <span className="guess-info">
-        Attention, quand vous changez de dfficulté, votre score est remis à 0
+        Attention, quand vous changez de dfficulté, votre score est remis à 0.
       </span>
       <div className="img-wrapper">
         <img
