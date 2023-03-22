@@ -84,7 +84,7 @@ body::before {
 .pokemons-container > .generation-range {
   font-family: "Pokemon", sans-serif;
   color: black;
-  background-color: #339dff;
+  background-color: #3f9490;
   width: 40px;
   height: 40px;
   display: flex;
@@ -98,5 +98,24 @@ body::before {
 }
 
 .pokemons-container > .generation-range.active {
+  opacity: 1;
+}
+
+.pokemons-container > .difficult-range {
+  font-family: "Pokemon", sans-serif;
+  color: black;
+  background-color: #eac787;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 16px;
+  height: fit-content;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s ease-out;
+}
+
+.pokemons-container > .difficult-range.active {
   opacity: 1;
 }

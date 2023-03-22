@@ -4,6 +4,7 @@ import RenderScore from "./RenderScore";
 
 function gameParameters() {
   const [generation, setGeneration] = useState(1);
+  const [difficult, setDifficult] = useState("Facile");
   const [total, setTotal] = useState(0);
   const [goodResponse, setGoodResponse] = useState(0);
 
@@ -29,7 +30,23 @@ function gameParameters() {
           );
         })}
       </div>
-      <GuessPokemonDisplay generation={generation} />
+      <div className="pokemons-container">
+        <h2 className="game-subtitle">Difficulté</h2>
+        {LEVEL_CHALLENGE.map((level, index) => {
+          return (
+            <span
+              key={index}
+              onClick={() => setDifficult(level)}
+              className={`difficult-range ${
+                level === difficult ? "active" : ""
+              }`}
+            >
+              {level}
+            </span>
+          );
+        })}
+      </div>
+      <GuessPokemonDisplay generation={generation} difficult={difficult} />
       <RenderScore />
     </>
   );

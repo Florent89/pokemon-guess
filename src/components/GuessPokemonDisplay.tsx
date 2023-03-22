@@ -15,7 +15,7 @@ export type resultPokemon = {
 
 const API_URL = "https://api-pokemon-fr.vercel.app/api/v1/gen/";
 
-function guessPokemonDisplay(props: { generation: number }) {
+function guessPokemonDisplay(props: { generation: number; difficult: string }) {
   const [pokemonList, setPokemonList] = useState<resultPokemon[]>([]);
   const [pokemonToGuess, setPokemonToGuess] = useState<resultPokemon>();
   const [response, setResponse] = useState("");
@@ -102,7 +102,7 @@ function guessPokemonDisplay(props: { generation: number }) {
     <>
       <div className="img-wrapper">
         <img
-          className="flag-img"
+          className={`flag-img ${props.difficult.toLowerCase()}`}
           src={pokemonToGuess?.imageUrl}
           alt={pokemonToGuess?.name}
         />
