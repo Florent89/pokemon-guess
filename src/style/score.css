@@ -1,3 +1,12 @@
 .score-text {
-  color: white;
+  text-align: center;
+  font-family: "Pokemon", sans-serif;
+  margin-bottom: 8px;
+}
+
+.result-container {
+  flex: 1 3;
+  background-color: #eac787;
+  border: 4px solid #7bb7b7;
+  border-radius: 5px;
 }

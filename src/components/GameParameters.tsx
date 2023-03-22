@@ -46,8 +46,12 @@ function gameParameters() {
           );
         })}
       </div>
-      <GuessPokemonDisplay generation={generation} difficult={difficult} />
-      <RenderScore />
+      <div className="pokemon-display-container">
+        <GuessPokemonDisplay generation={generation} difficult={difficult} />
+        <RenderScore />
+      </div>
+      {/* <GuessPokemonDisplay generation={generation} difficult={difficult} />
+      <RenderScore /> */}
     </>
   );
 }

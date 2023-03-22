@@ -119,3 +119,10 @@ body::before {
 .pokemons-container > .difficult-range.active {
   opacity: 1;
 }
+
+.pokemon-display-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}

@@ -99,7 +99,7 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
   }
 
   return (
-    <>
+    <div className="guess-wrapper">
       <div className="img-wrapper">
         <img
           className={`flag-img ${props.difficult.toLowerCase()}`}
@@ -122,7 +122,7 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
           </div>
 
           <button className="pass-button" onClick={(e) => handleResponse(e)}>
-            Aucune idée...
+            Je donne ma langue au miaouss
           </button>
         </form>
       </div>
@@ -134,7 +134,7 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
           handleClose={handleClose}
         />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -2,7 +2,15 @@
   --flag-width: 280px;
   --input-height: 40px;
   --blue-color: #339dff;
-  --max-img-height: 350px;
+  --max-img-height: 300px;
+}
+
+.guess-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex: 3 1;
 }
 
 .img-wrapper {
