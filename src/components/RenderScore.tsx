@@ -28,8 +28,10 @@ function renderScore() {
     <div className="result-container">
       {reste > 0 ? (
         <>
-          <p className="score-text">Votre score actuel est de {score} / 30</p>
-          <p className="score-text">Il reste {reste} questions</p>
+          <p className="score-text">
+            Score actuel <br /> {score} / 30
+          </p>
+          <p className="score-text">{reste} questions restantes</p>
         </>
       ) : (
         <>
