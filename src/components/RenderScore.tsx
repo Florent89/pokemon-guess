@@ -1,7 +1,9 @@
 import "../style/score.css";
 
-function renderScore(props: { score: number; total: number }) {
-  const reste = 30 - props.total;
+function renderScore() {
+  const score = parseInt(sessionStorage.getItem("score") ?? "0");
+  const total = parseInt(sessionStorage.getItem("totalResponse") ?? "0");
+  const reste = 30 - total;
 
   const result = (score: number) => {
     switch (true) {
@@ -18,21 +20,27 @@ function renderScore(props: { score: number; total: number }) {
     }
   };
 
+  const handleRemoveSessionStorage = () => {
+    sessionStorage.clear();
+  };
+
   return (
     <div className="result-container">
       {reste > 0 ? (
         <>
-          <p className="score-text">
-            Votre score actuel est de {props.score} / 30
-          </p>
+          <p className="score-text">Votre score actuel est de {score} / 30</p>
           <p className="score-text">Il reste {reste} questions</p>
         </>
       ) : (
         <>
-          <p className="score-text">
-            Votre résultat final : {props.score} / 30
-          </p>
-          <p className="score-result">{result(props.score)}</p>
+          <p className="score-text">Votre résultat final : {score} / 30</p>
+          <p className="score-text">{result(score)}</p>
+          <button
+            className="reset-score-button"
+            onClick={() => handleRemoveSessionStorage()}
+          >
+            Recommencer
+          </button>
         </>
       )}
     </div>

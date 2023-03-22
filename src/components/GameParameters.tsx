@@ -11,29 +11,26 @@ function gameParameters() {
 
   const LEVEL_CHALLENGE = ["Facile", "Normal", "Difficile"];
 
-  const updateScore = (isResponseOk: boolean) => {
-    let reste = total;
-    let responseTotal = goodResponse;
-    if (isResponseOk) {
-      setGoodResponse((responseTotal += 1));
-    }
-    setTotal((reste += 1));
-  };
-
   return (
     <>
       <div className="pokemons-container">
         <h2 className="game-subtitle">Génération</h2>
         {GENERATION.map((index) => {
           return (
-            <span key={index} onClick={() => setGeneration(index)} className={`generation-range ${index === generation ? "active" : ""}`}>
+            <span
+              key={index}
+              onClick={() => setGeneration(index)}
+              className={`generation-range ${
+                index === generation ? "active" : ""
+              }`}
+            >
               {index}
             </span>
           );
         })}
       </div>
-      <GuessPokemonDisplay generation={generation} updateScore={updateScore} />
-      <RenderScore score={goodResponse} total={total} />
+      <GuessPokemonDisplay generation={generation} />
+      <RenderScore />
     </>
   );
 }
