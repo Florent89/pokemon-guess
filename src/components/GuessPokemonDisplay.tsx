@@ -34,7 +34,12 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
         setPokemonList(res);
         randomisePokemon(res);
       });
-  }, [props.generation]);
+  }, [props.generation, props.difficult]);
+
+  useEffect(() => {
+    setScore(0);
+    setTotal(0);
+  }, [props.difficult]);
 
   function randomisePokemon(pokemonList: any): void {
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
@@ -73,6 +78,7 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
     ) {
       const updateScore = +score + 1;
       sessionStorage.setItem("score", updateScore.toString());
+      console.log(updateScore);
       setScore(updateScore);
     }
     const updateTotal = +total + 1;
@@ -100,6 +106,9 @@ function guessPokemonDisplay(props: { generation: number; difficult: string }) {
 
   return (
     <div className="guess-wrapper">
+      <span className="guess-info">
+        Attention, quand vous changez de dfficulté, votre score est remis à 0
+      </span>
       <div className="img-wrapper">
         <img
           className={`flag-img ${props.difficult.toLowerCase()}`}

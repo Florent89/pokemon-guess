@@ -5,12 +5,17 @@ import RenderScore from "./RenderScore";
 function gameParameters() {
   const [generation, setGeneration] = useState(1);
   const [difficult, setDifficult] = useState("Facile");
-  const [total, setTotal] = useState(0);
-  const [goodResponse, setGoodResponse] = useState(0);
 
   const GENERATION = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const LEVEL_CHALLENGE = ["Facile", "Normal", "Difficile"];
+
+  const handleSetDifficult = (level: string) => {
+    setDifficult(level);
+    sessionStorage.setItem("level", level);
+    sessionStorage.removeItem("totalResponse");
+    sessionStorage.removeItem("score");
+  };
 
   return (
     <>
@@ -36,7 +41,7 @@ function gameParameters() {
           return (
             <span
               key={index}
-              onClick={() => setDifficult(level)}
+              onClick={() => handleSetDifficult(level)}
               className={`difficult-range ${
                 level === difficult ? "active" : ""
               }`}
@@ -50,8 +55,6 @@ function gameParameters() {
         <GuessPokemonDisplay generation={generation} difficult={difficult} />
         <RenderScore />
       </div>
-      {/* <GuessPokemonDisplay generation={generation} difficult={difficult} />
-      <RenderScore /> */}
     </>
   );
 }
