@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import ModalResponsePokemon from "./ModalResponsePokemon";
+import "../style/guess.css";
+import { normaliseResponse } from "../utils/normalise";
 
-type resultPokemon = {
+export type resultPokemon = {
   name: string;
   numero: number;
   type: string;
@@ -13,10 +15,17 @@ type resultPokemon = {
 
 const API_URL = "https://api-pokemon-fr.vercel.app/api/v1/gen/";
 
-function guessPokemonDisplay(props: { generation: number }) {
+function guessPokemonDisplay(props: {
+  generation: number;
+  updateScore: Function;
+}) {
+  const [pokemonList, setPokemonList] = useState<resultPokemon[]>([]);
   const [pokemonToGuess, setPokemonToGuess] = useState<resultPokemon>();
   const [response, setResponse] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(false);
+
+  //session storage
 
   useEffect(() => {
     fetch(`${API_URL}${props.generation}`, {
@@ -24,6 +33,7 @@ function guessPokemonDisplay(props: { generation: number }) {
     })
       .then((response) => response.json())
       .then((res) => {
+        setPokemonList(res);
         randomisePokemon(res);
       });
   }, [props.generation]);
@@ -54,38 +64,78 @@ function guessPokemonDisplay(props: { generation: number }) {
     setResponse(e.target.value);
   };
 
+  const handleClose = () => {
+    setIsShowModal(false);
+    randomisePokemon(pokemonList);
+    if (
+      normaliseResponse(
+        response.toLowerCase(),
+        pokemonToGuess?.name?.toLowerCase()
+      )
+    ) {
+      sessionStorage.setItem("result", "value");
+      sessionStorage.setItem("totalResponse", "value");
+      props.updateScore(true);
+    } else {
+      props.updateScore(false);
+    }
+    setResponse("");
+  };
+
   function handleGuess(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void {
     e.preventDefault();
-    console.log(response);
+    if (response.length > 0) {
+      setIsAnswer(true);
+      setIsShowModal(true);
+    }
+  }
+
+  function handleResponse(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
+    e.preventDefault();
     setIsShowModal(true);
   }
 
-  function handleResponse(): void {
-    //open dialog response
-  }
-
   return (
-    <div>
-      <img src={pokemonToGuess?.imageUrl} alt={pokemonToGuess?.name} />
-      <div>
-        <form>
-          <div>
+    <>
+      <div className="img-wrapper">
+        <img
+          className="flag-img"
+          src={pokemonToGuess?.imageUrl}
+          alt={pokemonToGuess?.name}
+        />
+      </div>
+      <div className="guess-container">
+        <form className="guess-form">
+          <div className="input-row">
             <input
               placeholder="Pokémon"
-              name="pokemon"
               value={response}
               onChange={(e) => handleInputChange(e)}
+              className="guess-input"
             />
-            <button onClick={(e) => handleGuess(e)}>Envoyer</button>
+            <button className="guess-button" onClick={(e) => handleGuess(e)}>
+              Envoyer
+            </button>
           </div>
 
-          <button onClick={() => handleResponse()}>Aucune idée...</button>
+          <button className="pass-button" onClick={(e) => handleResponse(e)}>
+            Aucune idée...
+          </button>
         </form>
       </div>
-      {isShowModal ? <ModalResponsePokemon pokemonName={response} /> : ""}
-    </div>
+      <div className={`result-modal-wrapper ${!isShowModal ? "hidden" : ""}`}>
+        <ModalResponsePokemon
+          pokemonName={response}
+          isAnswer={isAnswer}
+          pokemonToGuess={pokemonToGuess}
+          handleClose={handleClose}
+        />
+      </div>
+    </>
   );
 }
 
