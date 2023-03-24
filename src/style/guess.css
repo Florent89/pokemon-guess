@@ -1,7 +1,7 @@
 :root {
   --flag-width: 280px;
   --input-height: 40px;
-  --blue-color: #339dff;
+  --blue-color: #2a75bb;
   --max-img-height: 300px;
 }
 
@@ -83,6 +83,61 @@
   font-family: "Pokemon", sans-serif;
 }
 
+.button-shiny {
+  border-radius: 0 5px 5px 0;
+  height: fit-content;
+  background-color: var(--blue-color);
+  color: #fff;
+  cursor: pointer;
+  font-family: "Pokemon", sans-serif;
+}
+
+.button-shiny {
+  margin-top: 8px;
+  align-items: center;
+  appearance: none;
+  background-color: #2a75bb;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395a;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "Pokemon", monospace;
+  height: 44px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 16px;
+}
+
+.button-shiny:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+.button-shiny:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-shiny:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
 .guess-button {
   padding: 0 1rem;
   border-radius: 0 5px 5px 0;
@@ -113,15 +168,17 @@
 
 .result-modal-wrapper {
   position: fixed;
-  top: 25%;
-  left: 8%;
-  width: 80%;
-  height: 50%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
   display: grid;
   place-items: center;
   transition: opacity 0.5s ease-out;
   z-index: 1;
   opacity: 1;
+  background: linear-gradient(rgba(0, 0, 0, 0.7) 100%, rgba(0, 0, 0, 0.7) 100%), url("assets/images/home.jpg") no-repeat center center fixed;
 }
 
 .result-modal-wrapper:not(.hidden) {
@@ -141,9 +198,8 @@
   border-radius: 10px 0 10px 0;
   transition: opacity 0.5s, transform 0.5s ease-out;
   font-family: "Pokemon", sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
   line-height: 36px;
 }
 
