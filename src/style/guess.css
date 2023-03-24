@@ -42,6 +42,17 @@
   transition: opacity 0.5s ease-out;
 }
 
+.img-response-container {
+  display: flex;
+  align-items: center;
+}
+
+.flag-img.response {
+  width: 50%;
+  height: auto;
+  margin: auto;
+}
+
 .flag-img.normal {
   filter: blur(5px);
 }

@@ -3,8 +3,6 @@ import "./App.css";
 import GameParameters from "./components/GameParameters";
 
 function App() {
-  const [score, setScore] = useState(0);
-
   return (
     <div className="game-container">
       <div className="flag-container">

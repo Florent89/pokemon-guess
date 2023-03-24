@@ -58,7 +58,7 @@ function guessPokemonDisplay(props: {
       });
   }, [props.generation, props.difficult]);
 
-  function randomisePokemon(pokemonList: any): void {
+  const randomisePokemon = (pokemonList: any) => {
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
     const randomPokemon = pokemonList[randomIndex];
     const soundSource = props.generation < 6 ? URL_OLD_CRIES : URL_NEW_CRIES;
@@ -79,15 +79,15 @@ function guessPokemonDisplay(props: {
           ? `${soundSource}${randomPokemon.pokedexId}.mp3`
           : "",
     });
-  }
+  };
 
-  function transformType(types: { name: string }[]) {
+  const transformType = (types: { name: string }[]) => {
     let arrayTypes: string[] = [];
     types.forEach((element) => {
       arrayTypes.push(element.name);
     });
     return arrayTypes.join(" et ");
-  }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setResponse(e.target.value);
@@ -113,22 +113,20 @@ function guessPokemonDisplay(props: {
     setResponse("");
   };
 
-  function handleGuess(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void {
+  const handleGuess = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (response.length > 0) {
       setIsAnswer(true);
       setIsShowModal(true);
     }
-  }
+  };
 
-  function handleResponse(
+  const handleResponse = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void {
+  ) => {
     e.preventDefault();
     setIsShowModal(true);
-  }
+  };
 
   const handlePlaySound = (sound: string) => {
     let music = new Audio(sound);
