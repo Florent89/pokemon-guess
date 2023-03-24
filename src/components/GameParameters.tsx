@@ -11,7 +11,7 @@ function gameParameters() {
   const GENERATION = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const GENERATIONS_SOUND = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const LEVEL_CHALLENGE = ["Facile", "Normal", "Difficile", "Hard"];
+  const LEVEL_CHALLENGE = ["Facile", "Normal", "Difficile", "Hard", "Stratège"];
 
   const handleSetDifficult = (level: string) => {
     setDifficult(level);
@@ -35,14 +35,26 @@ function gameParameters() {
         {difficult !== "Hard"
           ? GENERATION.map((index) => {
               return (
-                <span key={index} onClick={() => setGeneration(index)} className={`generation-range ${index === generation ? "active" : ""}`}>
+                <span
+                  key={index}
+                  onClick={() => setGeneration(index)}
+                  className={`generation-range ${
+                    index === generation ? "active" : ""
+                  }`}
+                >
                   {index}
                 </span>
               );
             })
           : GENERATIONS_SOUND.map((index) => {
               return (
-                <span key={index} onClick={() => setGeneration(index)} className={`generation-range ${index === generation ? "active" : ""}`}>
+                <span
+                  key={index}
+                  onClick={() => setGeneration(index)}
+                  className={`generation-range ${
+                    index === generation ? "active" : ""
+                  }`}
+                >
                   {index}
                 </span>
               );
@@ -52,14 +64,24 @@ function gameParameters() {
         <h2 className="game-subtitle">Difficulté</h2>
         {LEVEL_CHALLENGE.map((level, index) => {
           return (
-            <span key={index} onClick={() => handleSetDifficult(level)} className={`difficult-range ${level === difficult ? "active" : ""}`}>
+            <span
+              key={index}
+              onClick={() => handleSetDifficult(level)}
+              className={`difficult-range ${
+                level === difficult ? "active" : ""
+              }`}
+            >
               {level}
             </span>
           );
         })}
       </div>
       <div className="pokemon-display-container">
-        <GuessPokemonDisplay generation={generation} difficult={difficult} handleIsUpdate={handleIsUpdate} />
+        <GuessPokemonDisplay
+          generation={generation}
+          difficult={difficult}
+          handleIsUpdate={handleIsUpdate}
+        />
         <RenderScore isUpdate={isUpdate} handleIsUpdate={handleIsUpdate} />
       </div>
     </>

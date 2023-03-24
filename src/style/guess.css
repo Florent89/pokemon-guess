@@ -2,7 +2,7 @@
   --flag-width: 280px;
   --input-height: 40px;
   --blue-color: #2a75bb;
-  --max-img-height: 300px;
+  --max-img-height: 350px;
 }
 
 .guess-wrapper {
@@ -29,6 +29,7 @@
   width: var(--flag-width);
   height: var(--max-img-height);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -84,22 +85,14 @@
 }
 
 .button-shiny {
-  border-radius: 0 5px 5px 0;
-  height: fit-content;
-  background-color: var(--blue-color);
-  color: #fff;
-  cursor: pointer;
-  font-family: "Pokemon", sans-serif;
-}
-
-.button-shiny {
   margin-top: 8px;
   align-items: center;
   appearance: none;
   background-color: #2a75bb;
   border-radius: 4px;
   border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
   box-sizing: border-box;
   color: #36395a;
   cursor: pointer;
@@ -124,12 +117,24 @@
   font-size: 16px;
 }
 
+.button-shiny.clue1 {
+  background-color: #eac787;
+  color: #2a75bb;
+}
+
+.button-shiny.clue2 {
+  color: #eac787;
+  background-color: #2a75bb;
+}
+
 .button-shiny:focus {
-  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
 }
 
 .button-shiny:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
@@ -178,7 +183,8 @@
   transition: opacity 0.5s ease-out;
   z-index: 1;
   opacity: 1;
-  background: linear-gradient(rgba(0, 0, 0, 0.7) 100%, rgba(0, 0, 0, 0.7) 100%), url("assets/images/home.jpg") no-repeat center center fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.7) 100%, rgba(0, 0, 0, 0.7) 100%),
+    url("assets/images/home.jpg") no-repeat center center fixed;
 }
 
 .result-modal-wrapper:not(.hidden) {
@@ -198,8 +204,9 @@
   border-radius: 10px 0 10px 0;
   transition: opacity 0.5s, transform 0.5s ease-out;
   font-family: "Pokemon", sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
-    rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   line-height: 36px;
 }
 
@@ -298,4 +305,57 @@ svg.close-button {
 .play-again-button:hover {
   background-color: var(--blue-color);
   color: #fff;
+}
+
+.sound-container {
+  width: var(--flag-width);
+  height: var(--max-img-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.text-sound {
+  font-family: "Pokemon", sans-serif;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.btn-sound {
+  background-color: #5860a0;
+}
+
+.btn-sound i {
+  color: #f8d800;
+}
+
+.clue-text {
+  font-family: "Pokemon", sans-serif;
+  color: #fff;
+  font-style: italic;
+}
+
+.stat-container {
+  width: var(--flag-width);
+  height: var(--max-img-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "Pokemon", sans-serif;
+  color: white;
+}
+
+.stats-array-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.stats-array-column {
+  display: flex;
+  flex-direction: column;
 }
