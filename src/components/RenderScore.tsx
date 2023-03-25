@@ -11,6 +11,7 @@ function renderScore(props: { isUpdate: boolean; handleIsUpdate: Function }) {
   useEffect(() => {
     setScore(sessionStorage.getItem("score"));
     setTotal(sessionStorage.getItem("totalResponse"));
+    setReset(false);
   }, [props.isUpdate]);
 
   let reste = 30 - parseInt(total ?? "0");
@@ -31,7 +32,8 @@ function renderScore(props: { isUpdate: boolean; handleIsUpdate: Function }) {
         urlImage = "src/assets/images/unlast.jpg";
         return "Tu commences tout juste ton aventure, courage tu vas y arriver !";
       case score < 8:
-        urlImage = "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
+        urlImage =
+          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
         return "Ba alors tu es tout ramoloss ou bien !";
     }
   };
@@ -55,13 +57,18 @@ function renderScore(props: { isUpdate: boolean; handleIsUpdate: Function }) {
       ) : (
         <div className={`result-modal-wrapper ${reset ? "hidden" : ""}`}>
           <div className="result-text-container">
-            <p className="result-text">Votre résultat final est de {score} sur 30 devinettes.</p>
+            <p className="result-text">
+              Votre résultat final est de {score} sur 30 devinettes.
+            </p>
             <p className="result-text">{result(parseInt(score ?? "0"))}</p>
 
             <div className="img-wrapper">
               <img className="result-img" src={urlImage} />
             </div>
-            <button className="reset-score-button" onClick={() => handleRemoveSessionStorage()}>
+            <button
+              className="reset-score-button"
+              onClick={() => handleRemoveSessionStorage()}
+            >
               Recommencer
             </button>
           </div>

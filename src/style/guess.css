@@ -1,8 +1,8 @@
 :root {
-  --flag-width: 280px;
+  --flag-width: 250px;
   --input-height: 40px;
   --blue-color: #2a75bb;
-  --max-img-height: 350px;
+  --max-img-height: 290px;
 }
 
 .guess-wrapper {
@@ -125,7 +125,7 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow, transform;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .button-shiny.clue1 {
