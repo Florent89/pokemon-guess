@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../style/score.css";
+import { resetGamer } from "./Redux";
+import SaveFormScore from "./SaveFormScore";
 
-function renderScore(props: { isUpdate: boolean; handleIsUpdate: Function }) {
-  const [score, setScore] = useState<string | null>(null);
-  const [total, setTotal] = useState<string | null>(null);
-  const [reset, setReset] = useState(false);
+function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
+  const gamerOptions = useSelector((state: { gamer: any }) => state.gamer);
+  const dispatch = useDispatch();
 
   let urlImage = "";
 
-  useEffect(() => {
-    setScore(sessionStorage.getItem("score"));
-    setTotal(sessionStorage.getItem("totalResponse"));
-    setReset(false);
-  }, [props.isUpdate]);
-
-  let reste = 30 - parseInt(total ?? "0");
-
   const result = (score: number) => {
-    reste = 30;
     switch (true) {
       case score === 30:
         urlImage = "src/assets/images/blue.png";
@@ -32,43 +24,34 @@ function renderScore(props: { isUpdate: boolean; handleIsUpdate: Function }) {
         urlImage = "src/assets/images/unlast.jpg";
         return "Tu commences tout juste ton aventure, courage tu vas y arriver !";
       case score < 8:
-        urlImage =
-          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
+        urlImage = "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
         return "Ba alors tu es tout ramoloss ou bien !";
     }
   };
 
-  const handleRemoveSessionStorage = () => {
-    sessionStorage.setItem("score", "0");
-    sessionStorage.setItem("totalResponse", "0");
+  const handleResetGamerOptions = () => {
+    dispatch(resetGamer());
     props.handleIsUpdate();
-    setReset(true);
   };
 
   return (
     <>
-      {reste > 0 ? (
+      {30 - gamerOptions.total > 0 ? (
         <div className="result-container">
-          <p className="score-text">
-            Score actuel <br /> {score} / 30
-          </p>
-          <p className="score-text">{reste} questions restantes</p>
+          <p className="score-text">Score actuel : {gamerOptions.score} / 30</p>
+          <p className="score-text">{30 - gamerOptions.total} questions restantes</p>
         </div>
       ) : (
-        <div className={`result-modal-wrapper ${reset ? "hidden" : ""}`}>
+        <div className={`result-modal-wrapper hidden}`}>
           <div className="result-text-container">
-            <p className="result-text">
-              Votre résultat final est de {score} sur 30 devinettes.
-            </p>
-            <p className="result-text">{result(parseInt(score ?? "0"))}</p>
+            <p className="result-text">Votre résultat final est de {gamerOptions.score ?? "0"} sur 30 devinettes.</p>
+            <p className="result-text">{result(gamerOptions.score)}</p>
 
-            <div className="img-wrapper">
+            <div className="img-result-wrapper">
               <img className="result-img" src={urlImage} />
             </div>
-            <button
-              className="reset-score-button"
-              onClick={() => handleRemoveSessionStorage()}
-            >
+            <SaveFormScore score={gamerOptions.score ?? "0"} level={props.difficult} />
+            <button className="reset-score-button" onClick={() => handleResetGamerOptions()}>
               Recommencer
             </button>
           </div>

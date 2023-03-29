@@ -65,3 +65,10 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+@media screen and (max-width: 900px) {
+  body,
+  html {
+    height: auto;
+  }
+}
