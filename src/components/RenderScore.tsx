@@ -41,7 +41,7 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
 
   return (
     <>
-      {30 - gamerOptions.total < 0 ? (
+      {30 - gamerOptions.total > 0 ? (
         <div className="result-container">
           <p className="score-text">Score actuel : {gamerOptions.score} / 30</p>
           <p className="score-text">
