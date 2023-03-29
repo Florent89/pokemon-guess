@@ -51,7 +51,7 @@ export default class GamerService {
 
     return new Promise((resolve) => {
       const results = this.gamers.filter((gamer) => {
-        gamer.pseudo.includes(term) || gamer.level.includes(term);
+        return gamer.level.includes(term);
       });
       resolve(results);
     });

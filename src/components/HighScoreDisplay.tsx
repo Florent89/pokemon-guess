@@ -39,17 +39,17 @@ function highScoreDisplay() {
     GamerService.searchGamer(level).then((gamers) => setGamers(gamers));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const term = e.target.value;
-    setTerm(term);
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const term = e.target.value;
+  //   setTerm(term);
 
-    if (term.length <= 1) {
-      GamerService.getGamers().then((gamers) => setGamers(gamers));
-      return;
-    }
+  //   if (term.length <= 1) {
+  //     GamerService.getGamers().then((gamers) => setGamers(gamers));
+  //     return;
+  //   }
 
-    GamerService.searchGamer(term).then((gamers) => setGamers(gamers));
-  };
+  //   GamerService.searchGamer(term).then((gamers) => setGamers(gamers));
+  // };
 
   const handleShowHighScore = () => {
     setIsShowHighScore(!isShowHighScore);
@@ -65,14 +65,14 @@ function highScoreDisplay() {
       ) : (
         <>
           <form className="gamer-form">
-            <div className="input-pseudo">
+            {/* <div className="input-pseudo">
               <input
                 placeholder="Pseudo"
                 value={term}
                 onChange={(e) => handleInputChange(e)}
                 className="guess-input"
               />
-            </div>
+            </div> */}
             <div>
               <select value={level} onChange={(e) => handleSelectChange(e)}>
                 <option value="">- Difficulté -</option>

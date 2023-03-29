@@ -210,7 +210,7 @@
 }
 
 .result-modal-container {
-  width: calc(var(--flag-width) + 8rem);
+  width: calc(var(--flag-width) + 4rem);
   padding: 1rem;
   background-color: #fff;
   border-radius: 10px 0 10px 0;

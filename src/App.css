@@ -156,6 +156,10 @@ body::before {
     grid-row: 1;
     grid-column: 1 / 10;
   }
+  .pokemons-container > .generation-range {
+    width: 30px;
+    height: 30px;
+  }
   body::before {
     content: "";
     position: absolute;
