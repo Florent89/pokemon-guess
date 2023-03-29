@@ -21,8 +21,7 @@ function saveFormScore(props: {
       score: props.score,
       created: new Date(),
     };
-    GamerService.addGamer(gamer).then(() => console.log(gamer));
-    props.isSavingGamer();
+    GamerService.addGamer(gamer).then(() => props.isSavingGamer());
   };
 
   return (
