@@ -24,7 +24,8 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
         urlImage = "src/assets/images/unlast.jpg";
         return "Tu commences tout juste ton aventure, courage tu vas y arriver !";
       case score < 8:
-        urlImage = "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
+        urlImage =
+          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
         return "Ba alors tu es tout ramoloss ou bien !";
     }
   };
@@ -39,19 +40,31 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
       {30 - gamerOptions.total > 0 ? (
         <div className="result-container">
           <p className="score-text">Score actuel : {gamerOptions.score} / 30</p>
-          <p className="score-text">{30 - gamerOptions.total} questions restantes</p>
+          <p className="score-text">
+            {30 - gamerOptions.total} questions restantes
+          </p>
         </div>
       ) : (
         <div className={`result-modal-wrapper hidden}`}>
           <div className="result-text-container">
-            <p className="result-text">Votre résultat final est de {gamerOptions.score ?? "0"} sur 30 devinettes.</p>
+            <p className="result-text">
+              Votre résultat final est de {gamerOptions.score ?? "0"} sur 30
+              devinettes.
+            </p>
             <p className="result-text">{result(gamerOptions.score)}</p>
 
             <div className="img-result-wrapper">
               <img className="result-img" src={urlImage} />
             </div>
-            <SaveFormScore score={gamerOptions.score ?? "0"} level={props.difficult} />
-            <button className="reset-score-button" onClick={() => handleResetGamerOptions()}>
+            <SaveFormScore
+              score={gamerOptions.score}
+              level={gamerOptions.level}
+              isSavingGamer={handleResetGamerOptions}
+            />
+            <button
+              className="reset-score-button"
+              onClick={() => handleResetGamerOptions()}
+            >
               Recommencer
             </button>
           </div>

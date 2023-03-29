@@ -1,6 +1,11 @@
 import { useState } from "react";
+import GamerService from "../service/gamer-service";
 
-function saveFormScore(props: { score: string; level?: string }) {
+function saveFormScore(props: {
+  score: number;
+  level: string;
+  isSavingGamer: Function;
+}) {
   const [pseudo, setPseudo] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -9,13 +14,23 @@ function saveFormScore(props: { score: string; level?: string }) {
 
   const handleSave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log(pseudo, props.score, props.level);
+    const gamer = {
+      id: Math.floor((1 + Math.random()) * 0x10000),
+      pseudo,
+      level: props.level,
+      score: props.score,
+      created: new Date(),
+    };
+    GamerService.addGamer(gamer).then(() => console.log(gamer));
+    props.isSavingGamer();
   };
 
   return (
     <div>
       <form className="guess-form">
-        <span className="guess-info">Vous pouvez enregistrer votre score si vous le souhaitez</span>
+        <span className="guess-info">
+          Vous pouvez enregistrer votre score si vous le souhaitez
+        </span>
         <span className="guess-info">
           Score : <span className="result-info">{props.score}</span>
         </span>
@@ -23,7 +38,12 @@ function saveFormScore(props: { score: string; level?: string }) {
           Difficulté : <span className="result-info">{props.level}</span>
         </span>
         <div className="input-row">
-          <input placeholder="Pseudo" value={pseudo} onChange={(e) => handleInputChange(e)} className="guess-input" />
+          <input
+            placeholder="Pseudo"
+            value={pseudo}
+            onChange={(e) => handleInputChange(e)}
+            className="guess-input"
+          />
           <button className="guess-button" onClick={(e) => handleSave(e)}>
             Envoyer
           </button>
