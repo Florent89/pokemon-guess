@@ -52,7 +52,6 @@ function highScoreDisplay() {
   };
 
   const handleShowHighScore = () => {
-    console.log(gamers);
     setIsShowHighScore(!isShowHighScore);
   };
 
