@@ -12,16 +12,20 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
   const result = (score: number) => {
     switch (true) {
       case score === 30:
-        urlImage = "src/assets/images/blue.png";
+        urlImage =
+          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/130/regular.png";
         return "Bravo tu es un maître Pokémon de premier ordre ! PikaFélicitations";
       case score < 30 && score > 23:
-        urlImage = "src/assets/images/ondine.png";
+        urlImage =
+          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/31/regular.png";
         return "Tu es un vrai champion d'arène, encore une marche et tu seras un maître !";
       case score <= 23 && score >= 16:
-        urlImage = "src/assets/images/topdresseur.png";
+        urlImage =
+          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/8/regular.png";
         return "Tu es bon dresseur en devenir, il te reste encore du chemin à parcourir !";
       case score < 16 && score >= 8:
-        urlImage = "src/assets/images/unlast.jpg";
+        urlImage =
+          "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/133/regular.png";
         return "Tu commences tout juste ton aventure, courage tu vas y arriver !";
       case score < 8:
         urlImage =
@@ -37,7 +41,7 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
 
   return (
     <>
-      {30 - gamerOptions.total > 0 ? (
+      {30 - gamerOptions.total < 0 ? (
         <div className="result-container">
           <p className="score-text">Score actuel : {gamerOptions.score} / 30</p>
           <p className="score-text">

@@ -1,3 +1,5 @@
+import GAMERS from "./mock-gamers";
+
 export type Gamer = {
   id: number;
   score: number;
@@ -7,7 +9,7 @@ export type Gamer = {
 };
 
 export default class GamerService {
-  static gamers: Gamer[] = [];
+  static gamers: Gamer[] = GAMERS;
 
   static isDev =
     !process.env.NODE_ENV || process.env.NODE_ENV === "development";
