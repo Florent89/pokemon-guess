@@ -1,42 +1,63 @@
 import { useEffect, useState } from "react";
 import "../style/highscore.css";
-import GamerService, { Gamer } from "../service/gamer-service";
+import GamerScoreService, { Gamer } from "../service/gamers-service";
 
 function highScoreDisplay() {
   const [isShowHighScore, setIsShowHighScore] = useState(false);
   const [term, setTerm] = useState("");
   const [level, setLevel] = useState("");
+  const [generation, setGeneration] = useState("");
 
   const [gamers, setGamers] = useState<Gamer[]>([]);
 
   useEffect(() => {
-    GamerService.getGamers().then((gamers) => setGamers(gamers));
+    GamerScoreService.getGamerScores().then((gamers) => {
+      gamers.sort(function (a, b) {
+        return a.score - b.score;
+      });
+      if (gamers.length > 50) {
+        gamers.length === 50;
+      }
+      setGamers(gamers);
+    });
   }, []);
 
-  const users = [
-    { score: 20, level: "Facile", Pseudo: "Toto" },
-    { score: 18, level: "Hard", Pseudo: "Pouetos" },
-    { score: 5, level: "Normal", Pseudo: "Thipo" },
-  ];
-
-  //Filtrer par gamers(search bar), filtrer par difficulté
-  //Limiter à 10 la longueur du tableau
-
   const getGamersScore = () => {
-    GamerService.getGamers().then((gamers) => setGamers(gamers));
     handleShowHighScore();
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const level = e.target.value;
-    setLevel(level);
+  const handleSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    input: string
+  ) => {
+    if (input === "level") {
+      const level = e.target.value;
+      setGeneration("");
+      setLevel(level);
 
-    if (level.length <= 1 || level === "") {
-      GamerService.getGamers().then((gamers) => setGamers(gamers));
-      return;
+      if (level.length <= 1 || level === "") {
+        GamerScoreService.getGamerScores().then((gamers) => {
+          gamers.sort(function (a, b) {
+            return a.score - b.score;
+          });
+          if (gamers.length > 50) {
+            gamers.length === 50;
+          }
+          setGamers(gamers);
+        });
+        return;
+      }
+      GamerScoreService.getGamersByLevel(level).then((gamers) =>
+        setGamers(gamers)
+      );
+    } else {
+      const generation = e.target.value;
+      setGeneration(generation);
+      setLevel("");
+      GamerScoreService.getGamersByGeneration(+generation).then((gamers) =>
+        setGamers(gamers)
+      );
     }
-
-    GamerService.searchGamer(level).then((gamers) => setGamers(gamers));
   };
 
   // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +95,10 @@ function highScoreDisplay() {
               />
             </div> */}
             <div>
-              <select value={level} onChange={(e) => handleSelectChange(e)}>
+              <select
+                value={level}
+                onChange={(e) => handleSelectChange(e, "level")}
+              >
                 <option value="">- Difficulté -</option>
                 <option value="Facile">Facile</option>
                 <option value="Normal">Normal</option>
@@ -83,21 +107,45 @@ function highScoreDisplay() {
                 <option value="Hard">Stratège</option>
               </select>
             </div>
+            <div>
+              <select
+                value={generation}
+                onChange={(e) => handleSelectChange(e, "generation")}
+              >
+                <option value="">- Génération -</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </select>
+            </div>
           </form>
           <table
             className={`table-wrapper ${!isShowHighScore ? "hidden" : ""}`}
           >
             <thead>
               <tr>
-                <th colSpan={3}>Meilleurs Scores</th>
+                <th colSpan={4}>Meilleurs Scores</th>
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td>Pseudo</td>
+                <td>Difficulté</td>
+                <td>Génération</td>
+                <td>Score</td>
+              </tr>
               {gamers.map((element) => {
                 return (
                   <tr key={element.id}>
                     <td key={element.pseudo}>{element.pseudo}</td>
                     <td key={element.level}>{element.level}</td>
+                    <td key={element.generation}>{element.generation}</td>
                     <td key={element.score}>{element.score}</td>
                   </tr>
                 );

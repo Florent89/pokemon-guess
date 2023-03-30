@@ -186,6 +186,13 @@ body::before {
   .float-container {
     position: unset;
   }
+
+  .guess-info {
+    text-align: right;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: red;
+  }
 }
 
 .not-found-wrapper {

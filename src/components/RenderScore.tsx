@@ -63,6 +63,7 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
             <SaveFormScore
               score={gamerOptions.score}
               level={gamerOptions.level}
+              generation={gamerOptions.generation}
               isSavingGamer={handleResetGamerOptions}
             />
             <button

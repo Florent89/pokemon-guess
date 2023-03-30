@@ -1,9 +1,10 @@
 import { useState } from "react";
-import GamerService from "../service/gamer-service";
+import GamerScoreService from "../service/gamers-service";
 
 function saveFormScore(props: {
   score: number;
   level: string;
+  generation: number;
   isSavingGamer: Function;
 }) {
   const [pseudo, setPseudo] = useState("");
@@ -16,12 +17,15 @@ function saveFormScore(props: {
     e.preventDefault();
     const gamer = {
       id: Math.floor((1 + Math.random()) * 0x10000),
-      pseudo,
+      pseudo: pseudo,
       level: props.level,
       score: props.score,
+      generation: props.generation,
       created: new Date(),
     };
-    GamerService.addGamer(gamer).then(() => props.isSavingGamer());
+    GamerScoreService.addGamerScore(gamer).then(() => {
+      props.isSavingGamer();
+    });
   };
 
   return (
