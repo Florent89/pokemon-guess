@@ -161,13 +161,20 @@ function guessPokemonDisplay(props: {
     <div className="guess-wrapper">
       {props.difficult !== "Hard" && props.difficult !== "Stratège" ? (
         <>
-          <span className="label-shiny-toggle">
-            {isShiny ? "Shiny" : "Normal"}
-          </span>
-          <label className="switch">
-            <input type="checkbox" onClick={() => setIsShiny(!isShiny)} />
-            <span></span>
-          </label>
+          {props.difficult !== "Difficile" ? (
+            <>
+              {" "}
+              <span className="label-shiny-toggle">
+                {isShiny ? "Shiny" : "Normal"}
+              </span>
+              <label className="switch">
+                <input type="checkbox" onClick={() => setIsShiny(!isShiny)} />
+                <span></span>
+              </label>{" "}
+            </>
+          ) : (
+            ""
+          )}
 
           <div className="img-wrapper">
             <img
