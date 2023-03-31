@@ -153,6 +153,12 @@ body::before {
 }
 
 @media screen and (max-width: 900px) {
+  body::before {
+    height: 100%;
+  }
+  .game-container {
+    height: 100%;
+  }
   .pokemons-level-container {
     display: flex;
     flex-direction: column;
