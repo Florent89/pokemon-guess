@@ -5,7 +5,7 @@ import GuessPokemonDisplay from "./GuessPokemonDisplay";
 import { setLevel, setGen } from "./Redux";
 import RenderScore from "./RenderScore";
 
-function gameParameters() {
+function gameParameters(props: { isAfterSave: Function }) {
   const [generation, setGeneration] = useState(1);
   const [difficult, setDifficult] = useState("Facile");
 
@@ -35,12 +35,20 @@ function gameParameters() {
     setIsUpdate(!isUpdate);
   };
 
+  const handleAfterSave = () => {
+    props.isAfterSave();
+  };
+
   const handleIsUpdate = () => {
     setIsUpdate(!isUpdate);
   };
 
   return (
     <>
+      <span className="guess-info-general">
+        Attention, quand vous changez de difficulté ou de génération, votre
+        score est remis à 0.
+      </span>
       <div className="pokemons-container">
         <h2 className="game-subtitle">Génération</h2>
         {difficult !== "Hard"
@@ -87,13 +95,18 @@ function gameParameters() {
           );
         })}
       </div>
+
       <div className="pokemon-display-container">
         <GuessPokemonDisplay
           generation={generation}
           difficult={difficult}
           handleIsUpdate={handleIsUpdate}
         />
-        <RenderScore handleIsUpdate={handleIsUpdate} difficult={difficult} />
+        <RenderScore
+          handleIsUpdate={handleIsUpdate}
+          difficult={difficult}
+          isAfterSave={handleAfterSave}
+        />
       </div>
     </>
   );

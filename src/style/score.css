@@ -17,8 +17,8 @@
   border-radius: 5px;
   position: fixed;
   padding: 0.5rem;
-  width: calc(var(--flag-width) + 8rem);
-  height: 70%;
+  width: calc(var(--flag-width) + 15rem);
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,4 +68,28 @@
   font-size: 0.9rem;
   font-style: normal;
   font-weight: bold;
+}
+
+.guess-info-form {
+  text-align: right;
+  font-size: 0.85rem;
+  width: 90%;
+  text-align: center;
+  font-style: italic;
+}
+
+@media screen and (max-width: 900px) {
+  .result-text-container {
+    height: 78%;
+    width: calc(var(--flag-width) + 6rem);
+    padding-left: 8px;
+    padding-right: 8px;
+    top: 50px;
+  }
+
+  .result-text {
+    text-align: center;
+    font-family: "Pokemon", sans-serif;
+    font-size: calc(10px + 0.7vw);
+  }
 }

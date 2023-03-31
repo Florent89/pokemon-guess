@@ -31,13 +31,13 @@ function saveFormScore(props: {
   return (
     <div>
       <form className="guess-form">
-        <span className="guess-info">
+        <span className="guess-info-form">
           Vous pouvez enregistrer votre score si vous le souhaitez
         </span>
-        <span className="guess-info">
+        <span className="guess-info-form">
           Score : <span className="result-info">{props.score}</span>
         </span>
-        <span className="guess-info">
+        <span className="guess-info-form">
           Difficulté : <span className="result-info">{props.level}</span>
         </span>
         <div className="input-row">

@@ -3,7 +3,11 @@ import "../style/score.css";
 import { resetGamer } from "./Redux";
 import SaveFormScore from "./SaveFormScore";
 
-function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
+function renderScore(props: {
+  handleIsUpdate: Function;
+  difficult: string;
+  isAfterSave: Function;
+}) {
   const gamerOptions = useSelector((state: { gamer: any }) => state.gamer);
   const dispatch = useDispatch();
 
@@ -32,6 +36,11 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
           "https://raw.githubusercontent.com/Yarkis01/PokeAPI/images/sprites/79/regular.png";
         return "Ba alors tu es tout ramoloss ou bien !";
     }
+  };
+
+  const handleAfterSave = () => {
+    props.isAfterSave();
+    handleResetGamerOptions();
   };
 
   const handleResetGamerOptions = () => {
@@ -64,7 +73,7 @@ function renderScore(props: { handleIsUpdate: Function; difficult: string }) {
               score={gamerOptions.score}
               level={gamerOptions.level}
               generation={gamerOptions.generation}
-              isSavingGamer={handleResetGamerOptions}
+              isSavingGamer={handleAfterSave}
             />
             <button
               className="reset-score-button"

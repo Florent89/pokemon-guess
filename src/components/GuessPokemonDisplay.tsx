@@ -44,6 +44,8 @@ function guessPokemonDisplay(props: {
   const [isShowFirstClue, setIsShowFirstClue] = useState(false);
   const [isShowSecondClue, setIsShowSecondClue] = useState(false);
 
+  const [indexList, setIndexList] = useState<number[]>([]);
+
   const gamerOptions = useSelector((state: { gamer: any }) => state.gamer);
   const dispatch = useDispatch();
 
@@ -53,6 +55,7 @@ function guessPokemonDisplay(props: {
     })
       .then((response) => response.json())
       .then((res) => {
+        indexList.splice(0, indexList.length);
         setPokemonList(res);
         randomisePokemon(res);
         setIsShowFirstClue(false);
@@ -62,26 +65,30 @@ function guessPokemonDisplay(props: {
 
   const randomisePokemon = (pokemonList: any) => {
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
-    const randomPokemon = pokemonList[randomIndex];
-    const soundSource = props.generation < 6 ? URL_OLD_CRIES : URL_NEW_CRIES;
-
-    setPokemonToGuess({
-      name: randomPokemon["name"]["fr"],
-      numero: randomPokemon.pokedexId,
-      height: randomPokemon.height,
-      weight: randomPokemon.weight,
-      pokedexLink: `https://www.pokemon.com/fr/pokedex/${randomPokemon.pokedexId}`,
-      type: transformType(randomPokemon.types),
-      imageUrl: randomPokemon.sprites.regular,
-      category: randomPokemon.category,
-      stats: randomPokemon.stats,
-      imageUrlShiny:
-        randomPokemon.sprites.shiny ?? randomPokemon.sprites.regular,
-      pokemon_sound:
-        props.generation < 7
-          ? `${soundSource}${randomPokemon.pokedexId}.mp3`
-          : "",
-    });
+    if (indexList.includes(randomIndex)) {
+      randomisePokemon(pokemonList);
+    } else {
+      setIndexList([...indexList, randomIndex]);
+      const randomPokemon = pokemonList[randomIndex];
+      const soundSource = props.generation < 6 ? URL_OLD_CRIES : URL_NEW_CRIES;
+      setPokemonToGuess({
+        name: randomPokemon["name"]["fr"],
+        numero: randomPokemon.pokedexId,
+        height: randomPokemon.height,
+        weight: randomPokemon.weight,
+        pokedexLink: `https://www.pokemon.com/fr/pokedex/${randomPokemon.pokedexId}`,
+        type: transformType(randomPokemon.types),
+        imageUrl: randomPokemon.sprites.regular,
+        category: randomPokemon.category,
+        stats: randomPokemon.stats,
+        imageUrlShiny:
+          randomPokemon.sprites.shiny ?? randomPokemon.sprites.regular,
+        pokemon_sound:
+          props.generation < 7
+            ? `${soundSource}${randomPokemon.pokedexId}.mp3`
+            : "",
+      });
+    }
   };
 
   const transformType = (types: { name: string }[]) => {
@@ -152,15 +159,16 @@ function guessPokemonDisplay(props: {
 
   return (
     <div className="guess-wrapper">
-      <span className="guess-info">
-        Attention, quand vous changez de difficulté ou de génération, votre
-        score est remis à 0.
-      </span>
       {props.difficult !== "Hard" && props.difficult !== "Stratège" ? (
         <>
-          <button className="button-shiny" onClick={() => setIsShiny(!isShiny)}>
-            Forme Shiny
-          </button>
+          <span className="label-shiny-toggle">
+            {isShiny ? "Shiny" : "Normal"}
+          </span>
+          <label className="switch">
+            <input type="checkbox" onClick={() => setIsShiny(!isShiny)} />
+            <span></span>
+          </label>
+
           <div className="img-wrapper">
             <img
               className={`flag-img ${props.difficult.toLowerCase()}`}
@@ -222,7 +230,7 @@ function guessPokemonDisplay(props: {
               <span>Défense spéciale</span>
               <span>Vitesse</span>
             </div>
-            <div className="stats-array-column">
+            <div className="stats-response-column">
               <span>{pokemonToGuess?.stats?.hp}</span>
               <span>{pokemonToGuess?.stats?.atk}</span>
               <span>{pokemonToGuess?.stats?.def}</span>

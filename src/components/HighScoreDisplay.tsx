@@ -2,25 +2,27 @@ import { useEffect, useState } from "react";
 import "../style/highscore.css";
 import GamerScoreService, { Gamer } from "../service/gamers-service";
 
-function highScoreDisplay() {
+function highScoreDisplay(props: { isAfterSave: boolean }) {
   const [isShowHighScore, setIsShowHighScore] = useState(false);
   const [term, setTerm] = useState("");
   const [level, setLevel] = useState("");
-  const [generation, setGeneration] = useState("");
+  const [generation, setGeneration] = useState(0);
+  const [gamersScoreInit, setGamersScoreInit] = useState<Gamer[]>([]);
 
   const [gamers, setGamers] = useState<Gamer[]>([]);
 
   useEffect(() => {
     GamerScoreService.getGamerScores().then((gamers) => {
       gamers.sort(function (a, b) {
-        return a.score - b.score;
+        return a.score + b.score;
       });
       if (gamers.length > 50) {
         gamers.length === 50;
       }
+      setGamersScoreInit(gamers);
       setGamers(gamers);
     });
-  }, []);
+  }, [props.isAfterSave]);
 
   const getGamersScore = () => {
     handleShowHighScore();
@@ -32,31 +34,40 @@ function highScoreDisplay() {
   ) => {
     if (input === "level") {
       const level = e.target.value;
-      setGeneration("");
       setLevel(level);
-
-      if (level.length <= 1 || level === "") {
-        GamerScoreService.getGamerScores().then((gamers) => {
-          gamers.sort(function (a, b) {
-            return a.score - b.score;
-          });
-          if (gamers.length > 50) {
-            gamers.length === 50;
+      const newGamersList = gamersScoreInit.filter((element) => {
+        console.log(level);
+        if (level !== "" && generation !== 0) {
+          return element.level === level && element.generation === generation;
+        } else if (generation === 0) {
+          if (level === "") {
+            return element;
+          } else {
+            return element.level === level;
           }
-          setGamers(gamers);
-        });
-        return;
-      }
-      GamerScoreService.getGamersByLevel(level).then((gamers) =>
-        setGamers(gamers)
-      );
+        } else if (level === "") {
+          return element.generation === generation;
+        }
+      });
+      setGamers(newGamersList);
     } else {
-      const generation = e.target.value;
+      const generation = +e.target.value;
       setGeneration(generation);
-      setLevel("");
-      GamerScoreService.getGamersByGeneration(+generation).then((gamers) =>
-        setGamers(gamers)
-      );
+      const newGamersList = gamersScoreInit.filter((element) => {
+        console.log(generation);
+        if (level !== "" && generation !== 0) {
+          return element.level === level && element.generation === generation;
+        } else if (level === "") {
+          if (generation === 0) {
+            return element;
+          } else {
+            return element.generation === generation;
+          }
+        } else if (generation === 0) {
+          return element.level === level;
+        }
+      });
+      setGamers(newGamersList);
     }
   };
 
@@ -112,7 +123,7 @@ function highScoreDisplay() {
                 value={generation}
                 onChange={(e) => handleSelectChange(e, "generation")}
               >
-                <option value="">- Génération -</option>
+                <option value="0">- Génération -</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

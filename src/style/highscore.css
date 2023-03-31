@@ -76,3 +76,9 @@ select::after {
 select option {
   font-family: "Nova", sans-serif;
 }
+
+@media screen and (max-width: 900px) {
+  .highscore-wrapper {
+    align-items: center;
+  }
+}
